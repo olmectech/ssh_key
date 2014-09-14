@@ -24,13 +24,13 @@ ssh_authorized_key { $ssh_name:
  }
 }
 
-### What ssh affects
+### What ssh_kwy affects
 
 $HOME/.ssh/authorized_keys
 
 
 
-### Beginning with ssh
+### Beginning with ssh_kwy
 
 This module uses hiera and .yaml files to index data. You will see these files in the repository. Setup
 your /etc/puppetlabs/puppet/hiera.yaml file and create hieradata directory in same path. Tar file is 
