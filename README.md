@@ -4,35 +4,36 @@
 
 ## Overview
 
-Exported resources allow nodes to share information with each other. This is useful when one node has information that another node needs in order to manage a resource — the node with the information can construct and publish the resource, and the node managing the resource can collect it.
+This module copies user's rsa or dsa pub key to other hosts authorized_keys file for promptless login.
+This is usefull for services and programs that require promptless login.
 
 ### Description
+ 
+ class ssh_key ($user_data = hiera('data') ) {
 
-Every node with the ssh class will export its own SSH host key and then collect the SSH host key of every node (including its own). This will cause every node in the site to trust SSH connections from every other node.
-## Setup
+  $new_name = $user_data[0]['name']
+  $key_new = $user_data[1]['key']
+  $hostname_new = $user_data[2]['hostname']
+  $type_new = $user_data[3]['type']
+  $ssh_name = $user_data[4]['sshname']
+
+ssh_authorized_key { $ssh_name:
+  user => $new_name,
+  type => $type_new,
+  key => $key_new
+ }
+}
 
 ### What ssh affects
 
-/etc/ssh/ssh_known_hosts
+$HOME/.ssh/authorized_keys
 
-### Setup Requirements **OPTIONAL**
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
 
 ### Beginning with ssh
 
-Add the class below to your init.pp file.
+This module uses hiera and .yaml files to index data. You will see these files in the repository. Setup
+your /etc/puppetlabs/puppet/hiera.yaml file and create hieradata directory in same path. Tar file is 
+included also 
 
-## Usage
-
-    class sshkey {
-      # Declare:
-      @@sshkey { $hostname:
-        type => dsa,
-        key  => $sshdsakey,
-      }
-      # Collect:
-      Sshkey <<| |>>
-    }
 
