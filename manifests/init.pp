@@ -1,4 +1,4 @@
-class sshkey ($user_data = hiera('data') ) {
+class ssh_key ($user_data = hiera('data') ) {
 
   $new_name = $user_data[0]['name']
   $key_new = $user_data[1]['key']
